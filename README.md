@@ -81,91 +81,140 @@ Start the Flask server:
 
 ```bash
 python production_app.py
-The application will be available at http://localhost:5000.
+```
 
-Using the Interface
-Navigate to the web interface.
-Type your business question in the input field (e.g., "How can I improve my cash flow?").
-Select a category (Finance, Marketing, etc.) using the tool buttons for context-aware responses.
-Click Send or press Enter to receive an instant AI-generated response.
-API Usage
+The application will be available at `http://localhost:5000`.
+
+### Using the Interface
+
+1.  Navigate to the web interface.
+2.  Type your business question in the input field (e.g., *"How can I improve my cash flow?"*).
+3.  Select a category (Finance, Marketing, etc.) using the tool buttons for context-aware responses.
+4.  Click **Send** or press **Enter** to receive an instant AI-generated response.
+
+### API Usage
+
 You can interact with the backend programmatically.
 
-Single Consultation:
-
+**Single Consultation:**
+```bash
 curl "http://localhost:5000/api/consult?question=How to optimize supply chain?&category=operations"
-Health Check:
+```
 
+**Health Check:**
+```bash
 curl "http://localhost:5000/health"
-🏗️ Architecture
-Tech Stack
-Backend: Flask (Python)
-AI Model: Qwen-0.6B (Hugging Face Transformers)
-Frontend: Vanilla HTML5, CSS3, JavaScript (No heavy frameworks)
-Optimization: PyTorch, Accelerate, Flash Attention 2
-Monitoring: Custom logging, psutil, rate limiting
-System Design
-The application is designed as a microservice:
+```
 
-Client Layer: Responsive web interface handling user input and displaying AI responses.
-API Gateway: Flask routes handling HTTP requests, validation, and rate limiting.
-AI Engine: Optimized model inference with context injection and post-processing.
-Monitoring Layer: Tracks performance metrics, memory usage, and error rates.
-📡 API Endpoints
-Method	Endpoint	Description
-GET	/	Main web interface
-GET	/api/consult	Get a single business consultation response
-POST	/api/batch-consult	Process multiple questions at once
-GET	/api/model-info	Get model details and configuration
-GET	/health	System health check (CPU, Memory, Model status)
-GET	/metrics	Performance metrics (Response time, Error rate)
-🗺️ Roadmap
+---
+
+## 🏗️ Architecture
+
+### Tech Stack
+
+- **Backend**: Flask (Python)
+- **AI Model**: Qwen-0.6B (Hugging Face Transformers)
+- **Frontend**: Vanilla HTML5, CSS3, JavaScript (No heavy frameworks)
+- **Optimization**: PyTorch, Accelerate, Flash Attention 2
+- **Monitoring**: Custom logging, psutil, rate limiting
+
+### System Design
+
+The application is designed as a microservice:
+1.  **Client Layer**: Responsive web interface handling user input and displaying AI responses.
+2.  **API Gateway**: Flask routes handling HTTP requests, validation, and rate limiting.
+3.  **AI Engine**: Optimized model inference with context injection and post-processing.
+4.  **Monitoring Layer**: Tracks performance metrics, memory usage, and error rates.
+
+---
+
+## 📡 API Endpoints
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `GET` | `/` | Main web interface |
+| `GET` | `/api/consult` | Get a single business consultation response |
+| `POST` | `/api/batch-consult` | Process multiple questions at once |
+| `GET` | `/api/model-info` | Get model details and configuration |
+| `GET` | `/health` | System health check (CPU, Memory, Model status) |
+| `GET` | `/metrics` | Performance metrics (Response time, Error rate) |
+
+---
+
+## 🗺️ Roadmap
+
 We are committed to evolving Sethry into a comprehensive AI consulting suite.
 
-Phase 1: MVP (Completed)
-Core LLM integration (Qwen-0.6B)
-Web interface and API
-Basic prompt engineering
-Error handling and logging
-Phase 2: Knowledge Expansion (In Progress)
-RAG Implementation: Integration with vector databases (Pinecone/Chroma) for business-specific knowledge.
-Fine-Tuning: Custom fine-tuning on MSME business documents and case studies.
-Multi-Modal Support: Ability to upload PDFs or Excel files for analysis.
-Phase 3: Enterprise Features (Future)
-User Authentication & Management
-Custom Business Profiles (Industry, Size, Region)
-Exportable Reports (PDF generation)
-Docker & Kubernetes Deployment
-🐳 Deployment
-Docker Deployment
+### Phase 1: MVP (Completed)
+- [x] Core LLM integration (Qwen-0.6B)
+- [x] Web interface and API
+- [x] Basic prompt engineering
+- [x] Error handling and logging
+
+### Phase 2: Knowledge Expansion (In Progress)
+- [ ] **RAG Implementation**: Integration with vector databases (Pinecone/Chroma) for business-specific knowledge.
+- [ ] **Fine-Tuning**: Custom fine-tuning on MSME business documents and case studies.
+- [ ] **Multi-Modal Support**: Ability to upload PDFs or Excel files for analysis.
+
+### Phase 3: Enterprise Features (Future)
+- [ ] User Authentication & Management
+- [ ] Custom Business Profiles (Industry, Size, Region)
+- [ ] Exportable Reports (PDF generation)
+- [ ] Docker & Kubernetes Deployment
+
+---
+
+## 🐳 Deployment
+
+### Docker Deployment
+
 To deploy this application using Docker:
 
-Create a Dockerfile in the project root:
+1.  Create a `Dockerfile` in the project root:
+    ```dockerfile
+    FROM python:3.9-slim
 
-FROM python:3.9-slim
+    WORKDIR /app
 
-WORKDIR /app
+    COPY requirements.txt .
+    RUN pip install --no-cache-dir -r requirements.txt
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+    COPY . .
 
-COPY . .
+    EXPOSE 5000
 
-EXPOSE 5000
+    CMD ["python", "production_app.py"]
+    ```
 
-CMD ["python", "production_app.py"]
-Build and run:
+2.  Build and run:
+    ```bash
+    docker build -t sethry-ai .
+    docker run -p 5000:5000 -e HF_TOKEN=your_token sethry-ai
+    ```
 
-docker build -t sethry-ai .
-docker run -p 5000:5000 -e HF_TOKEN=your_token sethry-ai
-📝 License
-This project is licensed under the MIT License - see the LICENSE file for details.
+---
 
-👥 Contributing
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 👥 Contributing
+
 We welcome contributions! Whether it's improving the prompt engineering, optimizing the model inference, or fixing bugs, please feel free to open an issue or submit a pull request.
 
-📧 Contact
-For business inquiries, technical support, or partnership opportunities, please contact us at:
-[Insert Your Email Here]
+---
 
-Built with ❤️ for the MSME Community
+## 📧 Contact
+
+For business inquiries, technical support, or partnership opportunities, please contact us at:
+**[Insert Your Email Here]**
+
+---
+
+<div align="center">
+
+**Built with ❤️ for the MSME Community**
+
+</div>
