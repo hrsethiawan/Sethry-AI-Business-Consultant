@@ -224,4 +224,3 @@ For business inquiries, technical support, or partnership opportunities, please 
 **Built with ❤️ for the MSME Community**
 
 </div>
-```
